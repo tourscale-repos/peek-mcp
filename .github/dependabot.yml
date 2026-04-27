@@ -6,9 +6,19 @@ updates:
       interval: "weekly"
       day: "sunday"
     open-pull-requests-limit: 5
+    groups:
+      pip-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "sunday"
     open-pull-requests-limit: 5
+    groups:
+      docker-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
