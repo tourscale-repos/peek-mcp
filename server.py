@@ -21,6 +21,16 @@ from urllib.error import HTTPError, URLError
 
 from mcp.server.fastmcp import FastMCP
 
+_sentry_dsn = os.environ.get("SENTRY_DSN")
+if _sentry_dsn:
+    import sentry_sdk
+    sentry_sdk.init(
+        dsn=_sentry_dsn,
+        traces_sample_rate=0.0,
+        send_default_pii=False,
+        release=os.environ.get("SENTRY_RELEASE", "peek-mcp@dev"),
+    )
+
 mcp = FastMCP("peek")
 
 PEEK_APP_URL = os.environ.get("PEEK_APP_URL", "http://ts-peek-app:4000").rstrip("/")
