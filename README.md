@@ -25,6 +25,21 @@ agent → ts-peek-mcp (this) → ts-peek-app (broker, has secrets) → Peek Pro 
 
 ## Deployment
 
+Deploys from GitHub: the server builds from a checkout of `main`, per the
+[deployment policy](https://github.com/tourscale-repos/tourscale-engineering-policies/blob/main/deployment.md).
+Never copy code to the server or build images on your machine.
+
+It runs as service `ts-peek-mcp` inside the shared `/opt/tourscale` stack. The
+server has no checkout of this repo yet, so there is no approved deploy command
+until one is set up (policy: *Setting up a new Hetzner app*). Once it exists
+(`<checkout>` below) and the service builds from it, a deploy pulls it and
+rebuilds only this service:
+
+```sh
+ssh -t hetzner 'sudo -i sh -c "git -C <checkout> pull --ff-only && cd /opt/tourscale && docker compose -p tourscale -f docker-compose.services.yml up -d --build --no-deps ts-peek-mcp"'
+```
+
+- Compose: service in the `tourscale` project, defined in `/opt/tourscale/docker-compose.services.yml` on the Hetzner host
 - Container: `ts-peek-mcp` on `tourscale-net`
 - Port: `127.0.0.1:8098` (loopback only)
 - Talks to `ts-peek-app:4000` over the internal docker network
