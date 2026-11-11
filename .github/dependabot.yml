@@ -1,24 +1,27 @@
+# Weekly (Monday) Dependabot updates. Patch and minor updates are grouped into one PR
+# per ecosystem and auto-merged by .github/workflows/dependabot-automerge.yml once
+# required checks pass. Majors stay as separate PRs for review.
 version: 2
 updates:
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "sunday"
-    open-pull-requests-limit: 5
-    groups:
-      pip-minor-and-patch:
-        update-types:
-          - "minor"
-          - "patch"
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "sunday"
-    open-pull-requests-limit: 5
-    groups:
-      docker-minor-and-patch:
-        update-types:
-          - "minor"
-          - "patch"
+- package-ecosystem: pip
+  directory: /
+  schedule:
+    interval: weekly
+    day: monday
+  open-pull-requests-limit: 5
+  groups:
+    minor-and-patch:
+      update-types:
+      - minor
+      - patch
+- package-ecosystem: docker
+  directory: /
+  schedule:
+    interval: weekly
+    day: monday
+  open-pull-requests-limit: 5
+  groups:
+    minor-and-patch:
+      update-types:
+      - minor
+      - patch
